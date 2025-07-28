@@ -1,0 +1,16 @@
+# Copyright (c) ghgltggamer 2025
+# Written by ghgltggamer
+# Licensed under the MIT License
+# Check out the README.md file for more information
+
+@show_logs true
+
+test/test.cc: 
+    out = "test"
+    bin = "testbin"
+    include = "include"
+    pkg_in = [
+        "gtk+-3.0",
+        "webkit2gtk-4.0"
+    ]
+    system = "testbin/test --version and --help && rm -rf testbin"

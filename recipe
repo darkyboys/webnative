@@ -1,0 +1,10 @@
+# Copyright (c) ghgltggamer 2025
+# Written by ghgltggamer
+# Licensed under the MIT License
+# Check out the README.md file for more information
+
+@show_logs true
+
+src/webnative.cc:
+    out = "wncc"
+    include = "include"

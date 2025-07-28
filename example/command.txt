@@ -1,0 +1,1 @@
+bin/webnative -html=example/index.html -css=example/style.css -js=example/main.js -o=egproject --Window_Name=EgProject --Window_Height=1000 --Window_Width=1000

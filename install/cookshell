@@ -1,0 +1,2 @@
+cook.allow.logging
+mv bin/wncc /usr/local/bin
