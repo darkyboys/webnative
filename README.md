@@ -4,7 +4,7 @@
 ## Installation
 `WebNative` is called `wn` in it's apis and it has 2 repositories , One containg just the libraries which you can find (https://github.com/darkyboys/webnative-libraries)[here] and the repository containing the wncc which can is this repository, You only have to install from this repo and wncc has builtin repo management then.
 
- > Before you install make sure that you have the cook build system which you can fine (https://github.com/darkyboys/cook)[here] and git anf gcc compiler
+ > Before you install make sure that you have the cook build system which you can fine (https://github.com/darkyboys/cook)[here] and git and gcc compiler
 
 Now then just these commands in your shell:
 ```bash
@@ -29,8 +29,9 @@ The known flags are:
  - `-css=[file path]` : This flag links the defined css file in the path to the compiled executable
  - `-html=[file path]` : This flag links the defined html file in the path to the compiled executable
  - `-js=[file path]` : This flag links the defined js file in the path to the compiled executable
+ - `-o=[name]` : This sets the output project name
 
- > You can use these flags repeatedly as many times as you wish
+ > You can use these flags repeatedly as many times as you wish. And remember that wncc uses gtk3 and webkit2gtk packages for it's window management and rendering so please make sure that you have these packages installed, When you compile the wncc will generate the project/project.cc and project/recipe files where recipe is for the cook build system and project.cc is based on the project name and contains the compiled CASCI linked , html , css and javascript code ready to be turned into binary.
 
 
 ## How To Code In Wn API ?
