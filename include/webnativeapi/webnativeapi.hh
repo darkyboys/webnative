@@ -17,6 +17,7 @@
 #include <casci/casci.hh>
 #include <linuxtools/linuxtools.hh>
 #include <htmlui/HTMLUI.h>
+#include <libbase64/libbase64.hh>
 
 std::string wnApi_Fs_Open = "wnx0000";
 
@@ -67,7 +68,24 @@ void webnative_Api (HTMLUI& Instance, std::vector <std::string> argument_vector)
                 std::string buffer , content;
                 while (std::getline (wn_fs_readFile, buffer)) content += buffer + '\n';
                 std::string buildable_content = CASCI(content).encrypt ("0");
-                Instance.executeJS ("wn_fs_readFileData = `" + buildable_content + "`;");
+                Instance.executeJS ("wn_fs_readFileBuffer = `" + buildable_content + "`;");
+                Instance.executeJS ("wn_event_signal = 0;");
+            }
+            else {
+                Instance.executeJS ("wn_error ('No file was open which wn_fs_readFile can use to operate.');");
+            }
+        }
+    });
+
+
+    Instance.registerFunction("wn_fs_readFileBase64", [&Instance](std::string file_Data){
+        if (wnApi_Fs_Open == "wnx0000"){
+            Instance.executeJS ("wn_error ('No file was open which wn_fs_readFile can use to operate.');");
+        }
+        else {
+            std::ifstream wn_fs_readFile (wnApi_Fs_Open);
+            if (wn_fs_readFile.is_open()){
+                Instance.executeJS ("wn_fs_readFileBuffer = `" + libbase64::file_to_base64(wnApi_Fs_Open) + "`;");
                 Instance.executeJS ("wn_event_signal = 0;");
             }
             else {

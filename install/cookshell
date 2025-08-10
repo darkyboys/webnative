@@ -1,2 +1,3 @@
 cook.allow.logging
 mv bin/wncc /usr/local/bin
+mv bin/libwn-upgrade /usr/local/bin

@@ -30,6 +30,8 @@ The known flags are:
  - `-html=[file path]` : This flag links the defined html file in the path to the compiled executable
  - `-js=[file path]` : This flag links the defined js file in the path to the compiled executable
  - `-o=[name]` : This sets the output project name
+ - `-c` : This creates the compiled `.cc` file containing the compiled code but this must still be compiled with a valid C++ compiler.
+ - `-f` : This creates a directory and both the `.cc` file and `recipe` file for the cook build system inside it , So all you need to do is to open that directory and execute cook there and it will build the binary, (If you don't provide neither of -c and -f flags then you will get direct binary as the output)
 
  > You can use these flags repeatedly as many times as you wish. And remember that wncc uses gtk3 and webkit2gtk packages for it's window management and rendering so please make sure that you have these packages installed, When you compile the wncc will generate the project/project.cc and project/recipe files where recipe is for the cook build system and project.cc is based on the project name and contains the compiled CASCI linked , html , css and javascript code ready to be turned into binary.
 
@@ -53,7 +55,8 @@ The known flags are:
  - `wn_continue (func, checks = 100)` : This function takes a function as an argument and second optional argument for check intervals , And this only runs the function when ever the C++ runtime sends the `0` signal to javascript , And this becomes necessary for things like File IO where time varies.
  - `wn_fs_openFile(file_Path)` : THis function opens a file which except for the `wn_fs_newFile` and `wn_fs_isFileExists` every other wn fs functions uses as file name.
  - `wn_fs_writeFile(file_Data)`: This function writes the `file_Data` on the opened file and use this carefully as it never warns and overwrites the file.
- - `wn_fs_readFile()` : This function returns the entire file content of an opened file in a buffer (Variables who temporary stores data) which is the variable `wn_fs_readFileData` and is always string. And it will not return anything if the `File` couldn't be opened. (`wn_fs_readFileData` stores file data in CASCI so be sure to call `wn_normalize (bufferData)` to see the actual file content)
+ - `wn_fs_readFile()` : This function returns the entire file content of an opened file in a buffer (Variables who temporary stores data) which is the variable `wn_fs_readFileBuffer` and is always string. And it will not return anything if the `File` couldn't be opened. (`wn_fs_readFileBuffer` stores file data in CASCI so be sure to call `wn_normalize (bufferData)` to see the actual file content)
+ - `wn_fs_readFileBase64()` : This function returns the entire file content of an opened file in the `base64` encoding inside a buffer (Variables who temporary stores data) which is the variable `wn_fs_readFileBuffer` and is always string. And it will not return anything if the `File` couldn't be opened. 
  - `wn_fs_isFileExists(file_Name)` : This function checks if a file as `file_Name` exists or not, This is important for any file IO including read operations. If the file exists then write to the buffer / variable `wn_fs_isFileExistsBuffer` as 1 othervise 0 if don't exists.
  - `wn_fs_closeFile()` : This function closes any open file by assigning `wnx0000` in C++ Runtime.
  - `wn_normalize (bufferData)` : This function normalizes any `CASCI` buffer data into the original form by using the `libcasci` which `wncc` already links with your compiled javascript.

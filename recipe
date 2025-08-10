@@ -8,3 +8,5 @@
 src/webnative.cc:
     out = "wncc"
     include = "include"
+
+src/libwn-upgrade.cc: out = "libwn-upgrade"
