@@ -7,7 +7,7 @@
 
 // header
 // C++ STL
-#define WNCC_VERSION 2
+#define WNCC_VERSION 3
 #include <iostream>
 #include  <fstream>
 #include   <string>
