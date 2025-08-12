@@ -52,18 +52,22 @@ The known flags are:
  - `wn_init()` : This is the function which tells the wn javascript runtime if the C++ runtime is initalised (Loaded and ready to use)
  - `wn_run(func)` : This takes a function as an argument and only runs it if the wncc runtime is loaded , And it is needed to prevent loading your application in normal browsers. But you don't have to call it manually as wnApi handles it for you.
  - `wn_fs_newFile(file_Path)` : This function makes a new file on the given filePath e.g: `a.txt`
+ - `wn_fs_newDir(dir_Path)` : This function makes a new directory on the given Path e.g: `a`
+ - `wn_fs_remove(file_Path)` : This function removes the entire tree of directory or files e.g: `a.txt`
  - `wn_continue (func, checks = 100)` : This function takes a function as an argument and second optional argument for check intervals , And this only runs the function when ever the C++ runtime sends the `0` signal to javascript , And this becomes necessary for things like File IO where time varies.
  - `wn_fs_openFile(file_Path)` : THis function opens a file which except for the `wn_fs_newFile` and `wn_fs_isFileExists` every other wn fs functions uses as file name.
  - `wn_fs_writeFile(file_Data)`: This function writes the `file_Data` on the opened file and use this carefully as it never warns and overwrites the file.
  - `wn_fs_readFile()` : This function returns the entire file content of an opened file in a buffer (Variables who temporary stores data) which is the variable `wn_fs_readFileBuffer` and is always string. And it will not return anything if the `File` couldn't be opened. (`wn_fs_readFileBuffer` stores file data in CASCI so be sure to call `wn_normalize (bufferData)` to see the actual file content)
  - `wn_fs_readFileBase64()` : This function returns the entire file content of an opened file in the `base64` encoding inside a buffer (Variables who temporary stores data) which is the variable `wn_fs_readFileBuffer` and is always string. And it will not return anything if the `File` couldn't be opened. 
  - `wn_fs_isFileExists(file_Name)` : This function checks if a file as `file_Name` exists or not, This is important for any file IO including read operations. If the file exists then write to the buffer / variable `wn_fs_isFileExistsBuffer` as 1 othervise 0 if don't exists.
+ - `wn_fs_isDirExists(dir_Name)` : This function checks if a directory as `dir_Name` exists or not, This is important for any file IO including read/write operations. If the directory exists then write to the buffer / variable `wn_fs_isDirExistsBuffer` as 1 othervise 0 if don't exists.
  - `wn_fs_closeFile()` : This function closes any open file by assigning `wnx0000` in C++ Runtime.
  - `wn_normalize (bufferData)` : This function normalizes any `CASCI` buffer data into the original form by using the `libcasci` which `wncc` already links with your compiled javascript.
  - `wn_exit (code = 3)` : This function terminates your program anywhere with an exit code and bydefault it is 3.
  - `wn_system (command)` : This function runs a system shell command by blocking your application and only run it when the system command is finished.
  - `wn_psystem (command)` : This function is same as `wn_system (command)` but this one runt the command parallely to your program meaning it don't blocks your programs but use this carefully as it don't writes the signal buffer meaning `wn_continue (func, checks=100)` can't detect it.
-
+ - `wn_system_piped (command)` : This is a low level function provided by the wncc directly to get the stdout, stderr and any types of cli outputs the given command logs, This writes those outputs to the `wn_system_pipedBuffer`, Be sure to use `wn_continue` with this to avoid sync issues. (Also this is linux only)
+ - `wn_system_dataDir (name)` : This function sets the data directory for the `wncc runtime` which is created at `~/.config/<dir name>`. Default is `com.global.wn` but you should always overwrite it with anything , Literally anything to avoid collisions with other programs who also uses `wnruntime`, Because this is where wncc will process all the things on the user's machiene like piping etc. You can also use this to store files as this directory is assigned to your program by the `wncc runtime` so feel free to use it but don't interfere any existing files in the dir.(Also this is linux only)
  > Always remember these functions are only what you would need for most of the things , And don't use window.open and anchor tags as wn can only load online sites with anchor tags not the local files who aren't linked!! and linking also means your html will be directly rendered means if you link 2 pages and you want them to be seperately renderd then no they will render in a single frame / window.
 
 ---
